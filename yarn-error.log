@@ -1,0 +1,82 @@
+Arguments: 
+  /Users/anatoli/.nvm/versions/node/v8.9.4/bin/node /Users/anatoli/.yarn/bin/yarn.js
+
+PATH: 
+  /Users/anatoli/.yarn/bin:/Users/anatoli/.config/yarn/global/node_modules/.bin:/Users/anatoli/.nvm/versions/node/v8.9.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/anatoli/.yarn/bin:/Users/anatoli/.config/yarn/global/node_modules/.bin:/Users/anatoli/.rvm/bin:/Users/anatoli/.rvm/bin
+
+Yarn version: 
+  1.6.0
+
+Node version: 
+  8.9.4
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/anatoli/Developer/react-redux-guard/package.json: Unexpected token } in JSON at position 428
+      at JSON.parse (<anonymous>)
+      at /Users/anatoli/.yarn/lib/cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (/Users/anatoli/.yarn/lib/cli.js:98:30)
+      at /Users/anatoli/.yarn/lib/cli.js:109:13
+      at <anonymous>
+
+npm manifest: 
+  {
+    "name": "react-redux-guard",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/module.js",
+    "types": "dist/module.d.ts",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dist": "tsc --declaration",
+      "dist:watch": "tsc  --declaration -w",
+      "prepublish": "yarn dist"
+    },
+    "dependencies": {
+      "react": "^16.3.0",
+      "react-dom": "^16.2.0",
+      "react-scripts-ts": "2.13.0",
+    },
+    "devDependencies": {
+      "@types/jest": "^22.1.0",
+      "@types/node": "^8.9.4",
+      "@types/react": "^16.0.35",
+      "@types/react-dom": "^16.0.3",
+      "@types/react-redux": "^4.2.4",
+      "@types/redux": "^3.6.0",
+      "jest": "^21.2.1",
+      "jest-cli": "^21.2.1",
+      "prop-types": "^15.6.0",
+      "rimraf": "^2.6.2",
+      "typescript": "^2.6.2",
+      "xcel-react-core": "1.7.2",
+      "ts-node": "^5.0.1"
+    },
+    "jest": {
+      "coverageReporters": ["lcov", "cobertura", "text-summary", "json"],
+      "coverageDirectory": "coverage",
+      "testEnvironment": "jsdom",
+      "moduleFileExtensions": ["ts", "tsx", "js"],
+      "testMatch": ["**/src/**/*.test.(ts|tsx)"],
+      "collectCoverageFrom": ["**/src/**/*.(ts|tsx)", "!**/src/**/*.test.(ts|tsx)"],
+      "transform": {
+        "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      }
+    },
+    "eslintConfig": {
+      "extends": "react-app"
+    },
+    "license": "ISC",
+    "publishConfig": {
+      "registry": "http://xceldevops02.xceleration.com:8081/repository/npm-rewardstation/"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
