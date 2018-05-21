@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 
 export type GuardActionType = (dispatch: Dispatch) => Promise<any>;
 export type GuardCheckType = (state: any, forceFailure?: boolean) => JSX.Element | undefined | null;
+export type LoaderType = React.ReactNode | any | null;
 
 export type GuardedComponentState = {
   initialized: boolean;
@@ -17,7 +18,10 @@ export type GuardedComponentState = {
  * @param guard Gets passed state so you can check what you need to determine if the guard will allow or
  * disallow presentation of the WrappedComponent.
  */
-const withGuard = (guardAction: GuardActionType, guardCheck: GuardCheckType) => (WrappedComponent: any) => {
+const withGuard = (LoaderComponent: LoaderType = null) => (
+  guardAction: GuardActionType,
+  guardCheck: GuardCheckType
+) => (WrappedComponent: any) => {
   class GuardedComponent extends React.Component<any, GuardedComponentState> {
     constructor(props: any) {
       super(props);
@@ -51,7 +55,7 @@ const withGuard = (guardAction: GuardActionType, guardCheck: GuardCheckType) => 
           return <WrappedComponent {...this.props} />;
         }
       }
-      return null;
+      return LoaderComponent;
     }
   }
 
