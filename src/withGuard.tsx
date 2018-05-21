@@ -33,7 +33,7 @@ const withGuard = (guardAction: GuardActionType, guardCheck: GuardCheckType) => 
       try {
         await guardAction(dispatch);
       } catch {
-        newState.failed = false;
+        newState.failed = true;
       } finally {
         newState.initialized = true;
         this.setState(newState);
