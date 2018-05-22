@@ -2,8 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
+export type MapStateToPropsType = (state: { [index: string]: any }) => { [index: string]: any };
 export type GuardActionType = (dispatch: Dispatch) => Promise<any>;
-export type GuardCheckType = (state: any, forceFailure?: boolean) => JSX.Element | undefined | null;
+export type GuardCheckType = (
+  props: { [index: string]: any },
+  forceFailure?: boolean
+) => JSX.Element | undefined | null;
 export type LoaderType = React.ReactNode | any | null;
 
 export type GuardedComponentState = {
@@ -19,6 +23,7 @@ export type GuardedComponentState = {
  * disallow presentation of the WrappedComponent.
  */
 const withGuard = (LoaderComponent: LoaderType = null) => (
+  mapStateToProps: MapStateToPropsType,
   guardAction: GuardActionType,
   guardCheck: GuardCheckType
 ) => (WrappedComponent: any) => {
@@ -45,10 +50,9 @@ const withGuard = (LoaderComponent: LoaderType = null) => (
     }
 
     render() {
-      const { appState } = this.props;
       const { initialized, failed } = this.state;
       if (initialized === true) {
-        const FailComponent = guardCheck(appState, failed);
+        const FailComponent = guardCheck(this.props, failed);
         if (FailComponent !== undefined) {
           return FailComponent;
         } else {
@@ -59,13 +63,7 @@ const withGuard = (LoaderComponent: LoaderType = null) => (
     }
   }
 
-  const mapStateToProps = (state: { [index: string]: any }) => ({
-    appState: state
-  });
-
-  const mapDispatchToProps = (dispatch: Dispatch) => ({ dispatch });
-
-  return connect(mapStateToProps, mapDispatchToProps)(GuardedComponent as any);
+  return connect<any, any, any>(mapStateToProps)(GuardedComponent);
 };
 
 export default withGuard;
