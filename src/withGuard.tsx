@@ -1,13 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 
-export type MapStateToPropsType = (state: { [index: string]: any }) => { [index: string]: any };
-export type GuardActionType = (dispatch: Dispatch) => Promise<any>;
-export type GuardCheckType = (
-  props: { [index: string]: any },
-  forceFailure?: boolean
-) => JSX.Element | undefined | null;
+export type AnyObjectType = { [index: string]: any };
+export type GuardActionType = (dispatch: any) => Promise<any>;
+export type GuardCheckType = (props: AnyObjectType, forceFailure?: boolean) => JSX.Element | undefined | null;
 export type LoaderType = React.ReactNode | any | null;
 
 export type GuardedComponentState = {
@@ -22,8 +18,8 @@ export type GuardedComponentState = {
  * @param guard Gets passed state so you can check what you need to determine if the guard will allow or
  * disallow presentation of the WrappedComponent.
  */
-const withGuard = (LoaderComponent: LoaderType = null) => (
-  mapStateToProps: MapStateToPropsType,
+const withGuard = (LoaderComponent: LoaderType = null) => <MSTP extends {}>(
+  mapStateToProps: (state: AnyObjectType) => MSTP,
   guardAction: GuardActionType,
   guardCheck: GuardCheckType
 ) => (WrappedComponent: any) => {
@@ -63,7 +59,7 @@ const withGuard = (LoaderComponent: LoaderType = null) => (
     }
   }
 
-  return connect<any, any, any>(mapStateToProps)(GuardedComponent);
+  return connect<MSTP, {}, any>(mapStateToProps)(GuardedComponent);
 };
 
 export default withGuard;
